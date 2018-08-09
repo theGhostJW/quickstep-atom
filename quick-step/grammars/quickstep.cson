@@ -1,0 +1,144 @@
+'scopeName': 'source.quickstep'
+'name': 'Quickstep'
+'fileTypes': [
+  'rslt'
+  'plan'
+  'lookup'
+]
+firstLineMatch: '' # A regular expression that is matched against the first line of the document when Atom is trying to decide if the grammar is appropriate. Useful for shell scripts, mostly.
+foldingStartMarker: '' # A regular expression that checks for the start of a foldable area (such as `{`).
+foldingStopMarker: '' # A regular expression that checks for the end of a foldable area (such as `}`). If both folding markers are matched in the same line, there will be no foldable area.
+
+
+patterns: [
+  {
+    include: '#majorTitle'
+  }
+  {
+    include: '#minorTitle'
+  }
+  {
+    include: '#headerFields'
+  }
+  {
+    include: '#step'
+  }
+  {
+    include: '#error'
+  }
+  {
+    include: '#warning'
+  }
+  {
+    include: '#breadcrumb'
+  }
+  {
+    include: '#query'
+  }
+  {
+    include: '#link'
+  }
+  {
+    include: '#deferSkip'
+  }
+]
+
+repository: # An array of rules. If you're going to be referencing one bit of code over and over again, stick it here so that you can edit all in one place.
+  deferSkip: # Can be anything.
+        {
+          match: '(id:).*(skip|Skip|SKIP|defer|Defer|DEFER|deferred|Deferred|DEFERRED|SKIPPED|Skipped|skipped)' # A regular expression that matches some content. Optional.
+          name: '' # A period-delimited list of classes that will be applied to the content identified by `match`. Optional.
+          captures: # An array of `name` designations for `match` expressions that capture multiple bits. Optional.
+            0: # Arrays start at zero. This one will catch the whole regex. 1+ will catch the capture groups.
+              name: '' # This should be self-explanatory by now.
+            1: # Arrays start at zero. This one will catch the whole regex. 1+ will catch the capture groups.
+              name: 'link' # This should be self-explanatory by now.
+            2: # Arrays start at zero. This one will catch the whole regex. 1+ will catch the capture groups.
+              name: '' # This should be self-explanatory by now.
+            2: # Arrays start at zero. This one will catch the whole regex. 1+ will catch the capture groups.
+              name: 'deferSkip' # This should be self-explanatory by now.
+        }
+
+  link: # Can be anything.
+        {
+          match: '\\b(?!\\?\\?)\\S*__*\\S*\\b' # A regular expression that matches some content. Optional.
+          name: 'link' # A period-delimited list of classes that will be applied to the content identified by `match`. Optional.
+        }
+
+  error: # Can be anything.
+      {
+        match: '!!' # A regular expression that matches some content. Optional.
+        name: 'error' # A period-delimited list of classes that will be applied to the content identified by `match`. Optional.
+      }
+
+  warning: # Can be anything.
+       {
+         match: '(\\?!)' # A regular expression that matches some content. Optional.
+         name: 'warning' # A period-delimited list of classes that will be applied to the content identified by `match`. Optional.
+       }
+
+  breadcrumb: # Can be anything.
+      {
+        match: '~~' # A regular expression that matches some content. Optional.
+        name: 'breadcrumb' # A period-delimited list of classes that will be applied to the content identified by `match`. Optional.
+      }
+
+  query: # Can be anything.
+      {
+        match: '\\?\\?' # A regular expression that matches some content. Optional.
+        name: 'query alert-box warning' # A period-delimited list of classes that will be applied to the content identified by `match`. Optional.
+      }
+
+  step: # Can be anything.
+      {
+        match: '(?<=\\s)((#|=>)(?=\\s))'
+        begin: '' # A regular expression that precedes the content. Optional.
+        end: '' # A regular expression that follows the content. Optional.
+        name: 'step' # A period-delimited list of classes that will be applied to the content identified by `match`. Optional.
+        }
+  headerFields: # Can be anything.
+      {
+        match: '(?!((id:).*(skip|Skip|SKIP|defer|Defer|DEFER|deferred|Deferred|DEFERRED|SKIPPED|Skipped|skipped)))([^\\s^:]+)(:)' # A regular expression that matches some content. Optional.
+        begin: '' # A regular expression that precedes the content. Optional.
+        end: '' # A regular expression that follows the content. Optional.
+        name: 'header-fields' # A period-delimited list of classes that will be applied to the content identified by `match`. Optional.
+        }
+
+  majorTitle: # Can be anything.
+      {
+        match: '(====).+(====)' # A regular expression that matches some content. Optional.
+        begin: '' # A regular expression that precedes the content. Optional.
+        end: '' # A regular expression that follows the content. Optional.
+        name: 'section-heading' # A period-delimited list of classes that will be applied to the content identified by `match`. Optional.
+        contentName: 'section-heading' # A period-delimited list of classes that will be applied to the content within `begin` and `end`. Optional.
+        captures: # An array of `name` designations for `match` expressions that capture multiple bits. Optional.
+          0: # Arrays start at zero. This one will catch the whole regex. 1+ will catch the capture groups.
+            name: '' # This should be self-explanatory by now.
+        beginCaptures: # An array of `name` designations for `begin` expressions that capture multiple bits. Optional.
+          0:
+            name: ''
+        endCaptures: # An array of `name` designations for `end` expressions that capture multiple bits. Optional.
+          0:
+            name: ''
+        include: '' # This can be a reference to another grammar (by scope name), the current grammar (with `$self`), or a rule from the grammar's repository (with `#<rule>`). Optional.
+        patterns: [] # This is where you can get tricky. When you have matched content, Atom will search within it for anything in the child array. You can have `patterns[]` within `patterns[]`, then throw an `include` in to jump to some other rule or refer back to the root of the grammar. If you are making a rule that captures a block that might contain other tags, you should refer back to the root. Optional, naturally.
+      }
+
+  minorTitle: # Can be anything
+     {
+        match:  '(----).+(----)' # A regular expression that matches some content. Optional.
+        begin: ''
+        end: ''
+        name: 'test-heading'
+        contentName: 'test-heading'
+        captures:
+          0:
+            name: ''
+        beginCaptures:
+          0:
+            name: ''
+        endCaptures:
+          0:
+            name: ''
+        include: ''
+      }

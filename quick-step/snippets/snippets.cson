@@ -1,0 +1,142 @@
+# Your snippets
+#
+# Atom snippets allow you to enter a simple prefix in the editor and hit tab to
+# expand the prefix into a larger code block with templated values.
+#
+# You can create a new snippet in this file by typing "snip" and then hitting
+# tab.
+#
+# An example CoffeeScript snippet to expand log to console.log:
+#
+# '.source.coffee':
+#   'Console log':
+#     'prefix': 'log'
+#     'body': 'console.log $1'
+#
+# Each scope (e.g. '.source.coffee' above) can only be declared once.
+#
+# This file uses CoffeeScript Object Notation (CSON).
+# If you are unfamiliar with CSON, you can read more about it in the
+# Atom Flight Manual:
+# https://atom.io/docs/latest/using-atom-basic-customization#cson
+#
+'.source.quickstep':
+
+  'test case - full':
+    'prefix': 'ftc'
+    'body': '''
+    ---- $1 ----
+    id: $2
+    when: $4
+    then: $5
+    speIds: $6
+    steps:
+      $7
+    '''
+
+  'test case simple - simple no spec ids or whn then':
+    'prefix': 'stc'
+    'body': '''
+    ---- $1 ----
+    id: $2
+    steps:
+      $3
+    '''
+
+  'test case - no when then':
+    'prefix': 'nwttc'
+    'body': '''
+    ---- $1 ----
+    id:   $2
+    speIds:   $3
+    steps:
+        $4
+    '''
+
+  'test case - no spec ids':
+    'prefix': 'nstc'
+    'body': '''
+    ---- $1 ----
+    id: $2
+    when: $3
+    then: $4
+    steps:
+      $5
+      '''
+
+  'test section':
+      'prefix': 'tsec'
+      'body': '''
+   ==== $1 ====
+
+    $2
+   '''
+
+  'defect':
+      'prefix': 'd'
+      'body': '''!!  $1'''
+
+  'query':
+      'prefix': 'q'
+      'body': '''??  $1'''
+
+  'possible defect':
+        'prefix': 'p'
+        'body': '''?!  $1'''
+
+  'breadcrumb':
+        'prefix': 'b'
+        'body': '''~~
+        $1
+        '''
+
+
+'.source.js':
+
+  'exported function':
+      'prefix': 'funEx'
+      'body': '''
+      export function ${1:functionName}($2) {
+        $3
+      }
+   '''
+
+  'describe test':
+    'prefix': 'describe'
+    'body': '''
+    describe('$1', () => {
+
+      it('$2', () => {
+        $3
+      });
+
+    });
+    '''
+
+  'it test':
+    'prefix': 'it'
+    'body': '''
+      it('$1', () => {
+        $2
+      });
+    '''
+
+  'test script':
+    'prefix': 'intTestScript'
+    'body': '''
+    // @flow
+
+    import {it, describe} from 'mocha';
+    import {chk, chkEq, chkEqJson, chkFalse, chkExceptionText, chkWithMessage} from '../lib/AssertionUtils';
+    import { debug } from '../lib/SysUtils';
+    import { toTemp, toTempString } from '../lib/FileUtils';
+    import * as _ from 'lodash';
+
+    describe('$1', () => {
+
+      it('$2', () => {
+        $3
+      });
+
+    });
+    '''
